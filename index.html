@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VECTRA — ML Movie Recommender</title>
+  <meta name="description" content="A futuristic content-based movie recommendation interface powered by vector similarity.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor-glow"></div>
+
+  <nav class="nav">
+    <a class="brand" href="#"><span class="brand-mark">V</span><span>VECTRA</span></a>
+    <div class="nav-right">
+      <button id="modelOpen" class="nav-chip"><span class="pulse"></span>MODEL ONLINE</button>
+      <a href="#architecture" id="modelLink">How it works</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-content reveal">
+        <div class="eyebrow"><span></span> CONTENT-BASED RECOMMENDATION ENGINE</div>
+        <h1>Find the movie<br><em>that feels right.</em></h1>
+        <p class="hero-copy">Choose a film. VECTRA reads its content fingerprint, converts it into a numerical vector, and searches a 4,806-movie similarity space. Your results appear immediately below.</p>
+
+        <div class="search-shell" id="searchShell">
+          <div class="search-icon">⌕</div>
+          <input id="searchInput" autocomplete="off" placeholder="Search a movie — try Batman..." />
+          <button id="recommendBtn"><span>Recommend</span><b>↗</b></button>
+          <div id="suggestions" class="suggestions"></div>
+        </div>
+
+        <div class="demo-line">No backend needed for this preview · <button id="demoBatman">Run the Batman demo</button></div>
+      </div>
+
+      <div class="hero-orbit">
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <div class="orbit-core"><span>ML</span></div>
+        <div class="orb-label l1">TEXT</div>
+        <div class="orb-label l2">VECTORS</div>
+        <div class="orb-label l3">SIMILARITY</div>
+      </div>
+    </section>
+
+    <section class="model-run" id="modelPanel">
+      <div class="run-top">
+        <div><span class="kicker">03 / MODEL TRACE</span><h2>Thinking about <span id="selectedTitle">your movie</span>.</h2></div>
+        <span class="live-dot">LIVE TRACE</span>
+      </div>
+      <div id="pipeline"></div>
+      <div class="run-footer"><span>CountVectorizer</span><span>5000 max features</span><span>Cosine similarity</span><span>4806 vectors</span></div>
+    </section>
+
+    <section class="results-section" id="resultsSection">
+      <div class="section-head">
+        <div><span class="kicker">04 / OUTPUT</span><h2>Because you chose <span id="heroMovie">Batman</span>.</h2></div>
+        <span id="resultCount" class="result-count">5 recommendations</span>
+      </div>
+      <div id="results" class="results-grid"></div>
+    </section>
+
+    <section class="stats reveal">
+      <div><span id="catalogCount">4,809</span><small>merged movie rows</small></div>
+      <div><span id="modelCount">4,806</span><small>movies in model</small></div>
+      <div><span id="featureCount">5,000</span><small>max vector features</small></div>
+      <div><span>TOP 5</span><small>recommendations returned</small></div>
+    </section>
+
+    <section class="featured reveal">
+      <div class="section-head">
+        <div><span class="kicker">01 / EXPLORE</span><h2>A few starting points.</h2></div>
+        <p>Posters are resolved progressively so the interface stays fast even with the full catalog.</p>
+      </div>
+      <div class="poster-rail" id="featured"></div>
+    </section>
+
+    <section class="model-section" id="architecture">
+      <div class="section-head reveal">
+        <div><span class="kicker">02 / INSIDE THE MODEL</span><h2>From words to vectors.</h2></div>
+        <p>Your notebook's pipeline, turned into an interactive visual explanation.</p>
+      </div>
+
+      <div class="architecture reveal">
+        <div class="arch-node"><span>01</span><b>Movie profile</b><small>overview · genres · keywords · cast · director</small></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node accent"><span>02</span><b>Text vectorization</b><small>CountVectorizer · English stop words</small></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node"><span>03</span><b>Similarity space</b><small>cosine similarity · 4,806 × 4,806</small></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node"><span>04</span><b>Ranking</b><small>highest similarity → top 5</small></div>
+      </div>
+
+      <div class="vector-demo reveal">
+        <div class="vector-copy">
+          <span class="kicker">LIVE VECTOR PREVIEW</span>
+          <h3>Every movie becomes a fingerprint.</h3>
+          <p>Words from the movie's combined tags become dimensions in a sparse numerical representation. Similar movies point in similar directions.</p>
+          <div class="formula">cos(θ) = <span>A · B</span> / <span>‖A‖ ‖B‖</span></div>
+        </div>
+        <div class="vector-space">
+          <div class="grid-lines"></div>
+          <div class="vector v1"><i></i><b>Batman</b></div>
+          <div class="vector v2"><i></i><b>Batman Begins</b></div>
+          <div class="vector v3"><i></i><b>Batman Returns</b></div>
+          <div class="vector v4"><i></i><b>Avatar</b></div>
+          <div class="vector v5"><i></i><b>Osama</b></div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+  </main>
+
+  <footer>
+    <div><span class="brand-mark small">V</span> VECTRA</div>
+    <p>Content-based movie recommendation · built around a CountVectorizer + cosine similarity pipeline.</p>
+    <span class="mono">MODEL / 4806 MOVIES</span>
+  </footer>
+
+  <div class="drawer" id="modelDrawer">
+    <div class="drawer-backdrop"></div>
+    <aside class="drawer-panel">
+      <button class="close" id="closeModel">×</button>
+      <span class="kicker">MODEL SPEC</span>
+      <h2>Your ML model,<br>visualized.</h2>
+      <div class="spec-list">
+        <div><b>Data</b><span>TMDB 5000 Movies + Credits</span></div>
+        <div><b>Rows</b><span>4,809 → 4,806</span></div>
+        <div><b>Excluded</b><span>3 rows with missing overview</span></div>
+        <div><b>Features</b><span>CountVectorizer · 5,000 max</span></div>
+        <div><b>Similarity</b><span>Cosine similarity</span></div>
+        <div><b>Output</b><span>Top 5 nearest movies</span></div>
+      </div>
+      <p class="drawer-note">The standalone page is a frontend preview. To make every recommendation come directly from your saved Python similarity matrix, connect the included <code>recommendWithBackend()</code> hook to a Flask/FastAPI endpoint.</p>
+    </aside>
+  </div>
+
+  <!-- Lenis smooth scrolling. The page remains usable if the CDN is unavailable. -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+  <script src="movie_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
